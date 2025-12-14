@@ -365,6 +365,16 @@
       view[key] = { before: [], now: buildCell(zNow), after: [], tz, el: row, isHome };
     });
   
+    // Sort rows by their timezones
+    const sortedRows = rows.sort((a, b) => {
+      const aKey = a.getAttribute('data-id');
+      const bKey = b.getAttribute('data-id');
+      const aOffset = view[aKey]?.now.time.offsetNanoseconds ?? 0;
+      const bOffset = view[bKey]?.now.time.offsetNanoseconds ?? 0;
+      return aOffset - bOffset;
+    });
+    sortedRows.forEach(row => root.appendChild(row));
+
     // Decide cell width per spec
     const cellWidthNormal = 30, cellWidthWide = 35;
     const anyMinuteNonZero = Object.values(view).some(v => v && v.now && v.now.minute !== '0');
