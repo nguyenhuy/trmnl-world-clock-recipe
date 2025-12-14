@@ -499,7 +499,7 @@
         const diff = view.home.now.time.toPlainDateTime().since(row.now.time.toPlainDateTime());
         const hours = diff.hours + (diff.days * 24);
         const diffText = diff.sign === 0 ? '=' : 
-          (diff.sign > 0 ? '+' : '-') +
+          (diff.sign < 0 ? '+' : '-') +
           (Math.abs(hours).toString()) + 
           (diff.minutes ? ':' + (Math.abs(diff.minutes).toString().padStart(2, '0')) : '');
         row.el.querySelector('.meta .index').textContent = diffText;
